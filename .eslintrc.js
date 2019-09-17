@@ -13,7 +13,9 @@ module.exports = {
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
     'plugin:vue/essential', 
     // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-    'standard'
+    'standard',
+    'plugin:vue/strongly-recommended',
+    'plugin:prettier/recommended'
   ],
   // required to lint *.vue files
   plugins: [
@@ -34,6 +36,7 @@ module.exports = {
     // 语句强制分号结尾
     "semi": [1, "always"],
     // 未定义前不能使用
-    "no-use-before-define": 2
+    "no-use-before-define": 2,
+    "prettier/prettier": "error"
   }
 }
