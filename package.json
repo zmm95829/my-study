@@ -14,12 +14,13 @@
   },
   "lint-staged": {
     "src/**/*.{js,json,css,vue}": [
-     "prettier --write",
-     "eslint --fix",
-     "git add"
+      "prettier --write",
+      "eslint --fix",
+      "git add"
     ]
-   },
+  },
   "dependencies": {
+    "element-ui": "^2.12.0",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
