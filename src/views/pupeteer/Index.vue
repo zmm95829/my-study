@@ -14,7 +14,19 @@ export default {
      * 简单例子：截图百度
      */
     handleSimpleClick: function() {
-      alert("aaa");
+      // async function testa() {
+      //   return "testa";
+      // }
+      // function testb() {
+      //   return Promise.resolve("testb");
+      // }
+      // function testc() {
+      //   const a = await testa();
+      //   const b = await testb();
+      //   console.log(a + b);
+      //   return a + b;
+      // }
+      // console.log(testc());
     }
   }
 };
