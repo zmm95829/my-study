@@ -18,6 +18,11 @@ export default new Router({
       path: "/pupeteer",
       name: "Pupeteer",
       component: () => import("@/views/pupeteer")
+    },
+    {
+      path: "/simpleTemplate",
+      name: "SimpleTemplate",
+      component: () => import("@/views/simpleTemplate/Index")
     }
   ]
 });

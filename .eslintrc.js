@@ -13,9 +13,9 @@ module.exports = {
     // consider switching to `plugin:vue/strongly-recommended` or `plugin:vue/recommended` for stricter rules.
     'plugin:vue/essential', 
     // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-    'standard',
     'plugin:vue/strongly-recommended',
-    'plugin:prettier/recommended'
+    // 'plugin:prettier/recommended',
+    "eslint:recommended"
   ],
   // required to lint *.vue files
   plugins: [
@@ -37,6 +37,14 @@ module.exports = {
     "semi": [1, "always"],
     // 未定义前不能使用
     "no-use-before-define": 2,
-    "prettier/prettier": "error"
+    // "prettier/prettier": "error",
+    "linebreak-style": [0, "windows"],
+    "vue/max-attributes-per-line": [2, {
+      "singleline": 10,
+      "multiline": {
+        "max": 1,
+        "allowFirstLine": false
+      }
+    }],
   }
 }

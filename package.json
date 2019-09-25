@@ -7,14 +7,12 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "lint": "eslint --ext .js,.vue src",
+    "lint": "eslint --fix --ext .js,.vue src",
     "build": "node build/build.js",
-    "format": "prettier --write 'src/**/*.js' 'src/**/*.vue'",
     "precommit": "lint-staged"
   },
   "lint-staged": {
     "src/**/*.{js,json,css,vue}": [
-      "prettier --write",
       "eslint --fix",
       "git add"
     ]
