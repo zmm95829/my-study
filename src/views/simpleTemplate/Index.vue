@@ -5,12 +5,12 @@
       <li v-for="(item, index) in array" :key="index">
         <span>{{ item.label }}</span>
         <el-button type="text" @click="handleClickDisplay(item.value)">演示</el-button>
-        <el-button type="text" @click="handleClickViewCode(item.value)">查看代码</el-button>
+        <el-button type="text" @click="handleClickViewCode(item.label)">查看代码</el-button>
+        <div v-show="item.label === showLabel" style="max-height: 600px; overflow-y: auto; background-color: #c6ced5; max-width:900px;">
+          <xmp>{{ item.value }}</xmp>
+        </div>
       </li>
     </ul>
-    <el-drawer title="我是标题" :visible.sync="drawer.visible" direction="rtl">
-      <span>{{ drawer.value }}</span>
-    </el-drawer>
   </section>
 </template>
 <script>
@@ -26,10 +26,7 @@ export default {
   data: function() {
     return {
       array,
-      drawer: {
-        visible: false,
-        value: ""
-      }
+      showLabel: ""
     };
   },
   methods: {
@@ -38,9 +35,8 @@ export default {
       w.document.write(value);
       w.document.close();
     },
-    handleClickViewCode: function(value) {
-      this.drawer.value = value;
-      this.drawer.visible = true;
+    handleClickViewCode: function(label) {
+      this.showLabel = this.showLabel && this.showLabel === label ? "" : label;
     }
   }
 };
