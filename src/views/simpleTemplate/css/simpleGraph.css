@@ -1,0 +1,23 @@
+.rectangle {
+  width: 120px;
+  height: 80px;
+  background-color: skyblue;
+}
+.circle {
+  width: 100px;
+  height: 100px;
+  background-color: skyblue;
+  border-radius: 50%;
+}
+.ellipse {
+  width: 150px;
+  height: 100px;
+  background-color: skyblue;
+  border-radius: 50%;
+}
+.rounded-rectangle {
+  width: 150px;
+  height: 100px;
+  background-color: skyblue;
+  border-radius: 10%;
+}
