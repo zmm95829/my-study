@@ -49,6 +49,49 @@ export default new Router({
       component: () => import("@/views/tool/Index.vue")
     },
     {
+      path: "/database",
+      name: "DataBase",
+      meta: {
+        title: "数据库"
+      },
+      component: RouterPassThrough,
+      children: [
+        {
+          path: "indexedDB",
+          name: "indexedDB",
+          meta: {
+            title: "IndexedDB"
+          },
+          component: () => import("@/views/database/indexedDB/index.vue")
+        }
+      ]
+    }, {
+      path: "/system",
+      name: "System",
+      meta: {
+        title: "系统"
+      },
+      component: RouterPassThrough,
+      children: [
+        {
+          path: "relations",
+          name: "Relations",
+          meta: {
+            title: "人情系统"
+          },
+          component: () => import("@/views/system/Relations/Index.vue"),
+          children: [{
+              path: "personInfo",
+              name: "PersonInfo",
+              meta: {
+                title: "人员信息"
+              },
+              component: () => import("@/views/system/Relations/PersonInfo.vue")
+          }]
+        }
+      ]
+    },
+    {
       path: "/ceshi",
       name: "Ceshi",
       meta: {

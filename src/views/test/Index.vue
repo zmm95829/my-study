@@ -1,5 +1,5 @@
 <template>
-  <div>test</div>
+  <div>sdfsfsdfsfsfsf</div>
 </template>
 <script>
 export default {
@@ -8,6 +8,9 @@ export default {
     return {
 
     };
+  },
+  mounted() {
+    console.log("test");
   }
 };
 </script>
