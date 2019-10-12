@@ -3,6 +3,7 @@
     <router-link :to="{ name: 'Pupeteer' }">pupeteer</router-link>
     <router-link :to="{ name: 'SimpleTemplate' }">SimpleTemplate</router-link>
     <router-link :to="{ name: 'Tool' }">Tool</router-link>
+    <router-link :to="{ name: 'Test' }">Test</router-link>
   </div>
 </template>
 <script>

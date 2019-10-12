@@ -47,5 +47,15 @@ module.exports = {
         "allowFirstLine": false
       }
     }],
+    // 没有内容的标签允许自关闭
+    "vue/html-self-closing": ["error",{
+      "html": {
+        "void": "never",
+        "normal": "any",
+        "component": "any"
+      },
+      "svg": "always",
+      "math": "always"
+    }]
   }
 }

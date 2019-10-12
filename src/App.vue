@@ -1,13 +1,25 @@
 <template>
   <div id="app">
-    <router-view />
+    <siderbar/>
+    <div class="main">
+      <router-view />
+    </div>
   </div>
 </template>
 
 <script>
+import { Siderbar } from "@/views/layout/index.js";
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    Siderbar
+  }
 };
 </script>
 
-<style></style>
+<style>
+.main {
+  margin-left: 200px;
+  padding: 10px;
+}
+</style>
