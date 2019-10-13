@@ -22,7 +22,12 @@ export default new Router({
     {
       path: "/simpleTemplate",
       name: "SimpleTemplate",
-      component: () => import("@/views/simpleTemplate/Index")
+      component: () => import("@/views/simpleTemplate/Index.vue")
+    },
+    {
+      path: "/test",
+      name: "Test",
+      component: () => import("@/views/Test")
     }
   ]
 });

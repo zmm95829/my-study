@@ -29,6 +29,16 @@
                   <div :class="itemSubSub.label"/>
                   <xmp>{{ itemSubSub.value }}</xmp>
                 </div>
+                <ul v-if="itemSubSub.children && itemSubSub.children.length">
+                  <li v-for="(sub, i) in itemSubSub.children" :key="i">
+                    <span>{{ sub.label }}</span>
+                    <el-button type="text" @click="handleClickViewCode(sub.label)">查看</el-button>
+                    <div v-show="sub.label === showLabel" style="max-height: 600px; overflow-y: auto; background-color: #c6ced5; max-width:900px; display: flex;">
+                      <div :class="sub.label"/>
+                      <xmp>{{ sub.value }}</xmp>
+                    </div>
+                  </li>
+                </ul>
               </li>
             </ul>
           </li>

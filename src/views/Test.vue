@@ -1,13 +1,12 @@
 <template>
-  <div>
-    <router-link :to="{ name: 'Pupeteer' }">pupeteer</router-link>
+  <div>测试啊
     <router-link :to="{ name: 'SimpleTemplate' }">SimpleTemplate</router-link>
-    <router-link :to="{ name: 'Test' }">Test</router-link>
+
   </div>
 </template>
 <script>
 export default {
-  name: "Home",
+  name: "Test",
   data: function() {
     return {};
   }
