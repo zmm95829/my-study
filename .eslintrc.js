@@ -27,6 +27,7 @@ module.exports = {
     'generator-star-spacing': 'off',
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     // "off" -> 0 关闭规则
     // "warn" -> 1 开启警告规则
     //"error" -> 2 开启错误规则
@@ -46,5 +47,15 @@ module.exports = {
         "allowFirstLine": false
       }
     }],
+    // 没有内容的标签允许自关闭
+    "vue/html-self-closing": ["error",{
+      "html": {
+        "void": "never",
+        "normal": "any",
+        "component": "any"
+      },
+      "svg": "always",
+      "math": "always"
+    }]
   }
 }
