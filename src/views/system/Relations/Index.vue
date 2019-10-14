@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-menu router :default-active="activeIndex" mode="horizontal">
+    <el-button @click="handleDeleteDB">删除数据库</el-button>
+    <el-menu router default-active="activeIndex" mode="horizontal">
       <el-menu-item index="1">人情来往</el-menu-item>
       <el-submenu index="2">
         <template slot="title">基础信息</template>
@@ -13,12 +14,21 @@
   </div>
 </template>
 <script>
+import { openDB, deleteDB } from "./api/dbHelper.js";
 export default {
   name: "Relations",
   data: function() {
     return {
 
     };
+  },
+  methods: {
+    handleDeleteDB: function() {
+      deleteDB("Relations");
+    }
+  },
+  mounted() {
+    openDB("Relations");
   }
 };
 </script>

@@ -1,4 +1,4 @@
-export function createDB(dbName) {
+export function openDB(dbName) {
   return new Promise((resolve, reject) => {
     let indexedDB = window.indexedDB || window.webkitindexedDB;
     let request = indexedDB.open(dbName);
