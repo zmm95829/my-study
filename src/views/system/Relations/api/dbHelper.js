@@ -21,13 +21,19 @@ export function openDB(dbName) {
       let db = e.target.result;
       console.log("数据库结构", db);
       console.log("判断数据库中是否已经存在该名称的数据表", db.objectStoreNames.contains("personInfo"));
-      if (!db.objectStoreNames.contains("personInfo")) { //判断数据库中是否已经存在该名称的数据表
-        db.createObjectStore("personInfo", { keyPath: "id" });
-        // objectStore.createIndex("name", "name", { unique: false });
-        // objectStore.createIndex("contact", "contact", { unique: true });
-        // objectStore.createIndex("addrs", "address", { unique: true });
-        // objectStore.createIndex("remarks", "remarks", { unique: true });
-      }
+      const tables = ["personInfo", "relations", "myThings", "dictionary"];
+      tables.forEach(v => {
+        if (!db.objectStoreNames.contains(v)) { //判断数据库中是否已经存在该名称的数据表
+          db.createObjectStore(v, { keyPath: "id" });
+        }
+      });
+      // if (!db.objectStoreNames.contains("personInfo")) { //判断数据库中是否已经存在该名称的数据表
+      //   db.createObjectStore("personInfo", { keyPath: "id" });
+      //   // objectStore.createIndex("name", "name", { unique: false });
+      //   // objectStore.createIndex("contact", "contact", { unique: true });
+      //   // objectStore.createIndex("addrs", "address", { unique: true });
+      //   // objectStore.createIndex("remarks", "remarks", { unique: true });
+      // }
     };
     window.INDEXEDDB_DB = indexedDB;
   });
@@ -79,30 +85,42 @@ export function save(model, isUpdate, tableName) {
  * @param {*} tableName 表名
  */
 export function list(model, tableName) {
-  return new Promise((resolve, reject) => {
-    const db = window.INDEXEDDB_DB_RET;
-    var transaction = db.transaction([tableName]);
-    var objectStore = transaction.objectStore(tableName);
-    var request = objectStore.getAll();
-    request.onerror = function() {
-      console.log("查询失败");
-      reject("查询失败");
-    };
-    request.onsuccess = function() {
-      if (request.result) {
-        console.log(request.result);
-        let re = request.result;
-        Object.keys(model).forEach(key => {
-          if (model[key]) {
-            re = re.filter(v => v[key].indexOf(model[key]) !== -1);
-          }
-        });
-        resolve(re);
-      } else {
-        console.log("未获得数据记录");
-        resolve("未获得数据记录");
-      }
-    };
+  return Promise.resolve()
+  .then(() => {
+    if (window.INDEXEDDB_DB_RET) {
+      return window.INDEXEDDB_DB_RET;
+    } else {
+      return openDB().then(() => window.INDEXEDDB_DB_RET);
+    }
+  }).then(db => {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([tableName]);
+      var objectStore = transaction.objectStore(tableName);
+      var request = objectStore.getAll();
+      request.onerror = function() {
+        console.log("查询失败");
+        reject("查询失败");
+      };
+      request.onsuccess = function() {
+        if (request.result) {
+          console.log(request.result);
+          let re = request.result;
+          Object.keys(model || {}).forEach(key => {
+            if (model[key] && model[key].length === 2) {
+              re = re.filter(v => (v[key] >  model[key][0] && v[key] <  model[key][1]) || (v[key] >=  model[key][0] && v[key] <  model[key][1]) || (v[key] >  model[key][0] && v[key] <=  model[key][1]) || (v[key] ===  model[key][0] && v[key] ===  model[key][1]));
+            } else if (model[key]) {
+              re = re.filter(v => v[key] && v[key].indexOf(model[key]) !== -1);
+            } else if (model[key] === null) {
+              re = re.filter(v => v[key] === "");
+            }
+          });
+          resolve(re);
+        } else {
+          console.log("未获得数据记录");
+          resolve("未获得数据记录");
+        }
+      };
+    });
   });
 }
 /**

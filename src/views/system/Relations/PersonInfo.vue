@@ -1,21 +1,21 @@
 <template>
   <div>
     <el-form :inline="true">
-      <el-button v-if="!isEdit" type="primary" @click="handleChangeEdit">新增</el-button>
+      <el-button v-if="!isEdit" type="primary" @click="handleChangeEdit()">新增</el-button>
       <el-form-item label="人员名称">
-        <el-input v-model="model.name" placeholder="人员名称"/>
+        <el-input v-model="model.name" placeholder="人员名称" clearable/>
       </el-form-item>
       <el-form-item label="联系方式">
-        <el-input v-model="model.contract" placeholder="联系方式"/>
+        <el-input v-model="model.contract" placeholder="联系方式" clearable/>
       </el-form-item>
       <el-form-item label="家庭住址">
-        <el-input v-model="model.addr" placeholder="家庭住址"/>
+        <el-input v-model="model.addr" placeholder="家庭住址" clearable/>
       </el-form-item>
       <el-form-item label="备注">
-        <el-input v-model="model.remarks" placeholder="备注"/>
+        <el-input v-model="model.remarks" placeholder="备注" clearable/>
       </el-form-item>
       <el-button v-if="isEdit" type="primary" @click="handleSave">保存</el-button>
-      <el-button v-if="isEdit" type="primary" @click="handleChangeEdit">取消</el-button>
+      <el-button v-if="isEdit" type="primary" @click="handleChangeEdit()">取消</el-button>
       <el-button v-else type="primary" @click="handleSearch">查询</el-button>
     </el-form>
     人员信息
@@ -26,6 +26,7 @@
       <el-table-column prop="remarks" label="备注"/>
       <el-table-column label="操作">
         <template slot-scope="{row}">
+          <el-button type="text" @click="handleView(row)">查看</el-button>
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
           <el-button type="text" @click="handleDelete(row)">删除</el-button>
         </template>
@@ -127,6 +128,15 @@ export default {
     handleEdit: function(row) {
       console.log("编辑", row);
       Object.assign(this.model, row);
+      this.handleChangeEdit(true);
+    },
+    handleView: function(row) {
+      this.$router.push({
+        name: "PersonInfoDetail",
+        query: {
+          id: row.id
+        }
+      });
     }
   }
 };

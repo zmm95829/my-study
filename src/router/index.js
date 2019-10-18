@@ -79,15 +79,41 @@ export default new Router({
           meta: {
             title: "人情系统"
           },
+          redirect: "relations/index",
           component: () => import("@/views/system/Relations/Index.vue"),
           children: [{
-              path: "personInfo",
-              name: "PersonInfo",
-              meta: {
-                title: "人员信息"
-              },
-              component: () => import("@/views/system/Relations/PersonInfo.vue")
-          }]
+            path: "personInfo",
+            name: "PersonInfo",
+            meta: {
+              title: "人员信息"
+            },
+            component: () => import("@/views/system/Relations/PersonInfo.vue")
+          },
+          {
+            path: "personInfoDetail",
+            name: "PersonInfoDetail",
+            meta: {
+              title: "人员信息"
+            },
+            component: () => import("@/views/system/Relations/PersonInfoDetail.vue")
+          },
+          {
+            path: "index",
+            name: "Relations",
+            meta: {
+              title: "人情来往"
+            },
+            component: () => import("@/views/system/Relations/Relations.vue")
+          },
+          {
+            path: "myThings",
+            name: "MyThings",
+            meta: {
+              title: "我的"
+            },
+            component: () => import("@/views/system/Relations/MyThings.vue")
+          },
+          ]
         }
       ]
     },
