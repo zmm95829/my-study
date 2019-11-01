@@ -3,13 +3,13 @@
     <my-dialog v-model="dialog.visible" @handle-ok="handleOk">
       <el-form :inline="true">
         <el-form-item label="人员名称">
-          <el-select v-model="dialog.model.nameId" clearable>
+          <el-select v-model="dialog.model.nameId" clearable @change="handleChangeName">
             <el-option
               v-for="(item, index) in dict.nameOptions"
               :key="index"
               :label="item.name"
               :value="item.id"
-              @change="handleChangeName"/>
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="事件名称">
@@ -32,6 +32,15 @@
             placeholder="事件描述"
             clearable/>
         </el-form-item>
+        <el-form-item label="收付款方式">
+          <el-select v-model="dialog.model.paymentMethod">
+            <el-option
+              v-for="(item, index) in dict.paymentMethodOptions"
+              :key="index"
+              :label="item.value"
+              :value="item.value"/>
+          </el-select>
+        </el-form-item>
         <el-form-item label="关联我的事件">
           <el-select v-model="dialog.model.myThingId" :disabled="true">
             <el-option
@@ -52,6 +61,7 @@ import MyDialog from "@/components/MyDialog.vue";
 import { save } from "./api/relations.js";
 import { list as myThingsList } from "./api/myThings.js";
 import { list as personInfoList } from "./api/personInfo.js";
+import { save as testSave, findSubsByItemId } from "./api/dictionary.js";
 
 export default {
   name: "RelationsDetail",
@@ -68,12 +78,33 @@ export default {
     return {
       dict: {
         myThingOptions: [],
-        nameOptions: []
+        nameOptions: [],
+        paymentMethodOptions: []
       }
     };
   },
   mounted() {
     Promise.resolve()
+    .then(() => 
+    testSave({
+      id: uuid(),
+      itemId: "paymentMethod",
+      value: "付款方式",
+      subs: [
+        {
+          key: "WEIXIN",
+          value: "微信支付"
+        },
+        {
+          key: "XIANJIN",
+          value: "现金"
+        },
+        {
+          key: "ZHIFUBAO",
+          value: "支付宝"
+        }
+      ]
+    }, false))
       .then(() => this.getDict());
   },
   methods: {
@@ -87,6 +118,9 @@ export default {
         }),
         personInfoList().then(v => {
           this.dict.nameOptions = v;
+        }),
+        findSubsByItemId("paymentMethod").then(v => {
+          this.dict.paymentMethodOptions = v;
         })
       ]);
     },

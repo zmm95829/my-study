@@ -41,9 +41,8 @@
   </div>
 </template>
 <script>
-// import uuid from "uuid/v4";
 import RelationsDetail from "./RelationsDetail";
-import {  list, deleteById } from "./api/relations.js";
+import { list, deleteById } from "./api/relations.js";
 export default {
   name: "Relations",
   props: {

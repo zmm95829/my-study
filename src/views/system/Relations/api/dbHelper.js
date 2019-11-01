@@ -64,6 +64,7 @@ export function deleteDB(dbName) {
  * @param {*} tableName 表名
  */
 export function save(model, isUpdate, tableName) {
+  console.log("save", model);
   return new Promise((resolve, reject) => {
     const db = window.INDEXEDDB_DB_RET;
     let request = db.transaction([tableName], "readwrite")
@@ -90,7 +91,7 @@ export function list(model, tableName) {
     if (window.INDEXEDDB_DB_RET) {
       return window.INDEXEDDB_DB_RET;
     } else {
-      return openDB().then(() => window.INDEXEDDB_DB_RET);
+      return openDB("Relations").then(() => window.INDEXEDDB_DB_RET);
     }
   }).then(db => {
     return new Promise((resolve, reject) => {
@@ -161,6 +162,33 @@ export function getById(id, tableName) {
     request.onerror = function() {
       console.log("数据查询失败");
       reject();
+    };
+  });
+}
+export function findOne(model, tableName) {
+  return new Promise((resolve, reject) => {
+    const db = window.INDEXEDDB_DB_RET;
+    const transaction = db.transaction([tableName]);
+    var objectStore = transaction.objectStore(tableName);
+    var request = objectStore.getAll();
+    request.onerror = function() {
+      console.log("查询失败");
+      reject("查询失败");
+    };
+    request.onsuccess = function() {
+      if (request.result) {
+        console.log(request.result);
+        let re = request.result;
+        Object.keys(model || {}).forEach(key => {
+          if (model[key]) {
+            re = re.filter(v => v[key] === model[key]);
+          }
+        });
+        resolve(re);
+      } else {
+        console.log("未获得数据记录");
+        resolve("未获得数据记录");
+      }
     };
   });
 }

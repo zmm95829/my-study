@@ -1,7 +1,7 @@
 <template>
   <div>
     <my-dialog v-model="dialog.visible" :fullscreen="true" @handle-ok="handleOk" >
-      <el-form :inline="true">
+      <el-form :disabled="isView" :inline="true">
         <el-form-item label="事件名称">
           <el-input v-model="dialog.model.brief" placeholder="事件名称" clearable/>
         </el-form-item>
@@ -25,7 +25,7 @@
 
       </el-form>
       <el-divider/>
-      <relations :my-thing-id="dialog.model.id"/>
+      <relations v-if="isView" :my-thing-id="dialog.model.id"/>
     </my-dialog>
   </div>
 </template>
@@ -40,6 +40,10 @@ export default {
     dialog: {
       type: Object,
       required: true
+    },
+    isView: {
+      type: Boolean,
+      default: true
     }
   },
   components: {

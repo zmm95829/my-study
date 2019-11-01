@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-button @click="handleDeleteDB">删除数据库</el-button>
-    <el-menu router default-active="activeIndex" mode="horizontal">
+    <el-menu router :default-active="activeIndex" mode="horizontal">
       <el-menu-item index="/system/relations/index">人情来往</el-menu-item>
       <el-menu-item index="/system/relations/personInfo">人员信息</el-menu-item>
       <!-- <el-submenu index="2">
@@ -20,7 +20,7 @@ export default {
   name: "Relations",
   data: function() {
     return {
-
+      activeIndex: "/system/relations/index"
     };
   },
   methods: {

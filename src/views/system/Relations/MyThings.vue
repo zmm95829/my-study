@@ -28,12 +28,13 @@
       <el-table-column prop="date" label="发生时间" />
       <el-table-column label="操作">
         <template slot-scope="{row}">
+          <el-button type="text" @click="handleView(row)">查看</el-button>
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
           <el-button type="text" @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <my-things-detail :dialog="dialog" @handle-ok="handleOk" />
+    <my-things-detail :dialog="dialog" :is-view="isView" @handle-ok="handleOk" />
   </div>
 </template>
 <script>
@@ -49,6 +50,7 @@ export default {
     return {
       visible: false,
       tableData: [],
+      isView: true,
       model: {
         name: "",
         brief: "",
@@ -97,7 +99,12 @@ export default {
       });
     },
     handleEdit: function(row) {
-      console.log("编辑", row);
+      this.isView = false;
+      this.dialog.visible = true;
+      Object.assign(this.dialog.model, row);
+    },
+    handleView: function(row) {
+      this.isView = true;
       this.dialog.visible = true;
       Object.assign(this.dialog.model, row);
     },
@@ -105,6 +112,13 @@ export default {
       this.handleSearch();
     },
     handleAdd: function() {
+      this.dialog.model = {
+        id: "",
+        brief: "",
+        desc: "",
+        date: ""
+      };
+      this.isView = false;
       this.dialog.visible = true;
     }
   }
