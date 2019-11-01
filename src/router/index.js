@@ -134,6 +134,24 @@ export default new Router({
           component: () => import("@/views/test/Index.vue")
         }
       ]
+    },
+    {
+      path: "/ElementUI",
+      name: "ElementUI",
+      meta: {
+        title: "ElementUI"
+      },
+      component: RouterPassThrough,
+      children: [
+        {
+          path: "el-button",
+          name: "el-button",
+          meta: {
+            title: "el-button"
+          },
+          component: () => import("@/views/elementUI/elButton/Index.vue")
+        }
+      ]
     }
   ]
 });
