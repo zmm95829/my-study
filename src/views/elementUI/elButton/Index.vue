@@ -1,7 +1,9 @@
 <template>
   <div>
-    <zmm-button>测试按钮</zmm-button>
-    <el-button :loading="true">按钮</el-button>
+    <zmm-button>参考测试按钮</zmm-button>
+    <el-button>参考按钮</el-button>
+    <zmm-button plain>测试按钮</zmm-button>
+    <el-button plain>按钮</el-button>
   </div>
 </template>
 <script>
